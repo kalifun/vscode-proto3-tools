@@ -47,9 +47,164 @@
             "str"
         ],
         "body": [
-            "// @required = ${1|true,false|} @desc = ${2:Field Description}",
-            "string ${}"
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|string,repeated string|} ${4:FieldName} = ${5};"
         ],
         "description": "string field"
+    },
+    "Bool filed": {
+        "prefix": [
+            "bf"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|bool,repeated bool|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Bool Field"
+    },
+    "Double filed": {
+        "prefix": [
+            "df",
+            "f64"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|double,repeated double|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Double filed"
+    },
+    "Float field": {
+        "prefix": [
+            "ff",
+            "f32"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|float,repeated float|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Float field"
+    },
+    "Int32 field": {
+        "prefix": [
+            "i32"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|int32,repeated int32|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Int32 field"
+    },
+    "Int64 field": {
+        "prefix": [
+            "i64"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|int64,repeated int64|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Int64 field"
+    },
+    "Uint32 field": {
+        "prefix": [
+            "ui32"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|uint32,repeated uint32|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Uint32 field"
+    },
+    "Uint64 field": {
+        "prefix": [
+            "ui64"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|uint64,repeated uint64|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Uint64 field"
+    },
+    "Bytes field": {
+        "prefix": [
+            "byf",
+            "bytes"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "bytes ${3:FieldName} = ${4};"
+        ],
+        "description": "Byets field"
+    },
+    "Full field": {
+        "prefix": [
+            "f",
+            "field"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "${3|string,int32,int64,uint32,uint64,bool,double,float,bytes,*|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Full field"
+    },
+    "Repeated full field": {
+        "prefix": [
+            "rf",
+            "rfield"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "repeated ${3|string,int32,int64,uint32,uint64,bool,double,float,*|} ${4:FieldName} = ${5};"
+        ],
+        "description": "Repeated full field"
+    },
+    "Enum field": {
+        "prefix": [
+            "en",
+            "enum"
+        ],
+        "body": [
+            "/**",
+            "   @opt: ${1|required,optional|}",
+            "   @desc: ${2:Field Description}",
+            "*/",
+            "enum ${3:EnumName} {",
+            "   $4",
+            "}"
+        ],
+        "description": "Enum field"
     }
+    
 }
