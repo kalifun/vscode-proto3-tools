@@ -1,0 +1,55 @@
+{
+    "File type comments": {
+        "prefix": [
+            "p3"
+        ],
+        "body": [
+            "syntax = \"proto3\";"
+        ],
+        "description": "Header declaration"
+    },
+    "Api Services": {
+        "prefix": [
+            "svr"
+        ],
+        "body": [
+            "// @desc: ${1:Service Description}",
+            "service ${2:ServiceName} {",
+            "   $3",
+            "}"
+        ],
+        "description": "Api Services"
+    },
+    "Rpc": {
+        "prefix": [
+            "rpc"
+        ],
+        "body":[
+            "// @desc: ${1:Rpc Description}",
+            "rpc ${2:RpcName} (${3:RpcRequestName}) returns (${4:RpcReplyName});"
+        ],
+        "description": "rpc"
+    },
+    "Message": {
+        "prefix": [
+            "msg"
+        ],
+        "body": [
+            "// @desc: ${1:Message Description}",
+            "message ${2:MessageName} {",
+            "   $3",
+            "}"
+        ],
+        "description": "Message"
+    },
+    "String field": {
+        "prefix": [
+            "str"
+        ],
+        "body": [
+            "// @required = ${1|true,false|} @desc = ${2:Field Description}",
+            "string ${}"
+        ],
+        "description": "string field"
+    }
+}
