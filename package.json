@@ -4,8 +4,11 @@
   "version": "0.0.1",
   "description": "Write comments in advance",
   "engines": {
-		"vscode": "^1.28.0"
-	},
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/kalifun/vscode-proto3-tools"
@@ -15,15 +18,20 @@
     "languages": [
       {
         "id": "protobuf",
+        "aliases": [
+          "ProtoBuf",
+          "protobuf"
+        ],
         "extensions": [
           ".proto"
-        ]
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
         "language": "protobuf",
-        "scopeName": "source.protobuf",
+        "scopeName": "source.proto",
         "path": "./syntaxes/protobuf.tmLanguage.json"
       }
     ],
