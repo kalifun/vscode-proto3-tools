@@ -6,6 +6,7 @@
 - [x] Snippets
 - [x] Syntaxes
 
+![](images/syntaxes.png)
 
 # acknowledgement
 
