@@ -1,11 +1,17 @@
 {
   "File type comments": {
-    "prefix": ["p3"],
-    "body": ["syntax = \"proto3\";"],
+    "prefix": [
+      "p3"
+    ],
+    "body": [
+      "syntax = \"proto3\";"
+    ],
     "description": "Header declaration"
   },
   "Api Services": {
-    "prefix": ["svr"],
+    "prefix": [
+      "svr"
+    ],
     "body": [
       "// @desc: ${1:Service Description}",
       "service ${2:ServiceName} {",
@@ -15,7 +21,9 @@
     "description": "Api Services"
   },
   "Rpc": {
-    "prefix": ["rpc"],
+    "prefix": [
+      "rpc"
+    ],
     "body": [
       "// @desc: ${1:Rpc Description}",
       "rpc ${2:RpcName} (${3:RpcRequestName}) returns (${4:RpcReplyName});"
@@ -23,7 +31,9 @@
     "description": "rpc"
   },
   "Message": {
-    "prefix": ["msg"],
+    "prefix": [
+      "msg"
+    ],
     "body": [
       "// @desc: ${1:Message Description}",
       "message ${2:MessageName} {",
@@ -33,12 +43,19 @@
     "description": "Message"
   },
   "import": {
-    "prefix": ["imp"],
-    "body": ["// @desc: ${1:Import Description}", "import \"${2:Path}\";"],
+    "prefix": [
+      "imp"
+    ],
+    "body": [
+      "// @desc: ${1:Import Description}",
+      "import \"${2:Path}\";"
+    ],
     "description": "Import"
   },
   "String field": {
-    "prefix": ["str"],
+    "prefix": [
+      "str"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -49,7 +66,9 @@
     "description": "string field"
   },
   "Bool filed": {
-    "prefix": ["bf"],
+    "prefix": [
+      "bf"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -60,7 +79,10 @@
     "description": "Bool Field"
   },
   "Double filed": {
-    "prefix": ["df", "f64"],
+    "prefix": [
+      "df",
+      "f64"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -71,7 +93,10 @@
     "description": "Double filed"
   },
   "Float field": {
-    "prefix": ["ff", "f32"],
+    "prefix": [
+      "ff",
+      "f32"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -82,7 +107,9 @@
     "description": "Float field"
   },
   "Int32 field": {
-    "prefix": ["i32"],
+    "prefix": [
+      "i32"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -93,7 +120,9 @@
     "description": "Int32 field"
   },
   "Int64 field": {
-    "prefix": ["i64"],
+    "prefix": [
+      "i64"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -104,7 +133,9 @@
     "description": "Int64 field"
   },
   "Uint32 field": {
-    "prefix": ["ui32"],
+    "prefix": [
+      "ui32"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -115,7 +146,9 @@
     "description": "Uint32 field"
   },
   "Uint64 field": {
-    "prefix": ["ui64"],
+    "prefix": [
+      "ui64"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -126,7 +159,10 @@
     "description": "Uint64 field"
   },
   "Bytes field": {
-    "prefix": ["byf", "bytes"],
+    "prefix": [
+      "byf",
+      "bytes"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -137,7 +173,10 @@
     "description": "Byets field"
   },
   "Full field": {
-    "prefix": ["f", "field"],
+    "prefix": [
+      "f",
+      "field"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -148,7 +187,10 @@
     "description": "Full field"
   },
   "Repeated full field": {
-    "prefix": ["rf", "rfield"],
+    "prefix": [
+      "rf",
+      "rfield"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -159,7 +201,10 @@
     "description": "Repeated full field"
   },
   "Enum field": {
-    "prefix": ["en", "enum"],
+    "prefix": [
+      "en",
+      "enum"
+    ],
     "body": [
       "/**",
       "   @opt: ${1|required,optional|}",
@@ -170,5 +215,15 @@
       "}"
     ],
     "description": "Enum field"
+  },
+  "package name": {
+    "prefix": [
+      "pkg",
+      "package"
+    ],
+    "body": [
+      "// @desc: ${1:Package Description}",
+      "package ${2:PackageName};"
+    ]
   }
 }
