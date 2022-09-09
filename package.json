@@ -17,7 +17,7 @@
   "contributes": {
     "languages": [
       {
-        "id": "protobuf",
+        "id": "proto3",
         "aliases": [
           "ProtoBuf",
           "protobuf"
@@ -30,14 +30,14 @@
     ],
     "grammars": [
       {
-        "language": "protobuf",
+        "language": "proto3",
         "scopeName": "source.proto",
         "path": "./syntaxes/protobuf.tmLanguage.json"
       }
     ],
     "snippets": [
       {
-        "language": "protobuf",
+        "language": "proto3",
         "path": "./snippets/snippets.json"
       }
     ]
