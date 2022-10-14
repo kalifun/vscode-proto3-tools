@@ -25,8 +25,13 @@
       "rpc"
     ],
     "body": [
-      "// @desc: ${1:Rpc Description}",
-      "rpc ${2:RpcName} (${3:RpcRequestName}) returns (${4:RpcReplyName});"
+      "/**",
+      "   @path: ${1:Rpc Path }",
+      "   @desc: ${2:Rpc Description}",
+      "   @method: ${3|post,get,put,delete,patch|}",
+      "   @version: ${4:Rpc Version}",
+      "*/",
+      "rpc ${5:RpcName} (${6:RpcRequestName}) returns (${7:RpcReplyName});"
     ],
     "description": "rpc"
   },
@@ -58,10 +63,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|string,repeated string|} ${4:FieldName} = ${5};"
+      "${1|string,repeated string|} ${2:FieldName} = ${3};"
     ],
     "description": "string field"
   },
@@ -71,10 +76,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|bool,repeated bool|} ${4:FieldName} = ${5};"
+      "${1|bool,repeated bool|} ${2:FieldName} = ${3};"
     ],
     "description": "Bool Field"
   },
@@ -85,10 +90,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|double,repeated double|} ${4:FieldName} = ${5};"
+      "${1|double,repeated double|} ${2:FieldName} = ${3};"
     ],
     "description": "Double filed"
   },
@@ -99,10 +104,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|float,repeated float|} ${4:FieldName} = ${5};"
+      "${1|float,repeated float|} ${2:FieldName} = ${3};"
     ],
     "description": "Float field"
   },
@@ -112,10 +117,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|int32,repeated int32|} ${4:FieldName} = ${5};"
+      "${1|int32,repeated int32|} ${2:FieldName} = ${3};"
     ],
     "description": "Int32 field"
   },
@@ -125,10 +130,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|int64,repeated int64|} ${4:FieldName} = ${5};"
+      "${1|int64,repeated int64|} ${2:FieldName} = ${3};"
     ],
     "description": "Int64 field"
   },
@@ -138,10 +143,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|uint32,repeated uint32|} ${4:FieldName} = ${5};"
+      "${1|uint32,repeated uint32|} ${2:FieldName} = ${3};"
     ],
     "description": "Uint32 field"
   },
@@ -151,10 +156,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|uint64,repeated uint64|} ${4:FieldName} = ${5};"
+      "${1|uint64,repeated uint64|} ${2:FieldName} = ${3};"
     ],
     "description": "Uint64 field"
   },
@@ -165,10 +170,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${1:FieldName} ${3:Description}",
+      "   @required: ${4|true,false|}",
       "*/",
-      "bytes ${3:FieldName} = ${4};"
+      "bytes ${1:FieldName} = ${2};"
     ],
     "description": "Byets field"
   },
@@ -179,10 +184,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "${3|string,int32,int64,uint32,uint64,bool,double,float,bytes,*|} ${4:FieldName} = ${5};"
+      "${1|string,int32,int64,uint32,uint64,bool,double,float,bytes,*|} ${2:FieldName} = ${3};"
     ],
     "description": "Full field"
   },
@@ -193,10 +198,10 @@
     ],
     "body": [
       "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
+      "   @desc: ${2:FieldName} ${4:Description}",
+      "   @required: ${5|true,false|}",
       "*/",
-      "repeated ${3|string,int32,int64,uint32,uint64,bool,double,float,*|} ${4:FieldName} = ${5};"
+      "repeated ${1|string,int32,int64,uint32,uint64,bool,double,float,*|} ${2:FieldName} = ${3};"
     ],
     "description": "Repeated full field"
   },
@@ -206,12 +211,9 @@
       "enum"
     ],
     "body": [
-      "/**",
-      "   @opt: ${1|required,optional|}",
-      "   @desc: ${2:Field Description}",
-      "*/",
-      "enum ${3:EnumName} {",
-      "   $4",
+      "// @desc: ${1:Enum Description}",
+      "enum ${2:EnumName} {",
+      "   $3",
       "}"
     ],
     "description": "Enum field"

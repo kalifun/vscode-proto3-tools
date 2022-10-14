@@ -57,22 +57,42 @@
         }
       ]
     },
-    "desc": {
+    "keyword": {
       "patterns": [
         {
-          "match": "\\s+(@desc:)",
+          "match": "\\s+(@path:|@Path:|Path:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
             }
           }
-        }
-      ]
-    },
-    "opt": {
-      "patterns": [
+        },
         {
-          "match": "\\s+(@opt:)",
+          "match": "\\s+(@desc:|@Desc:|Desc:)",
+          "captures": {
+            "1": {
+              "name": "support.other.proto"
+            }
+          }
+        },
+        {
+          "match": "\\s+(@version:|@Version:|Version:)",
+          "captures": {
+            "1": {
+              "name": "support.other.proto"
+            }
+          }
+        },
+        {
+          "match": "\\s+(@method:|@Method:|Method:)",
+          "captures": {
+            "1": {
+              "name": "support.other.proto"
+            }
+          }
+        },
+        {
+          "match": "\\s+(@required:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -89,10 +109,7 @@
           "end": "\\*/",
           "patterns": [
             {
-              "include": "#desc"
-            },
-            {
-              "include": "#opt"
+              "include": "#keyword"
             }
           ]
         },
@@ -102,10 +119,7 @@
           "end": "$\\n?",
           "patterns": [
             {
-              "include": "#desc"
-            },
-            {
-              "include": "#required"
+              "include": "#keyword"
             }
           ]
         }
