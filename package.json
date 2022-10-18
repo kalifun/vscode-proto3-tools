@@ -1,7 +1,7 @@
 {
   "name": "vscode-proto3-tools",
   "displayName": "Proto3 Tools",
-  "version": "0.1.0.1018_beta",
+  "version": "0.1.1",
   "description": "proto3 language service",
   "engines": {
     "vscode": "^1.71.0"
