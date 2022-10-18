@@ -1,19 +1,27 @@
 {
   "name": "vscode-proto3-tools",
-  "displayName": "proto3 tools",
-  "version": "0.0.1",
-  "description": "Write comments in advance",
+  "displayName": "Proto3 Tools",
+  "version": "0.1.0.1018_beta",
+  "description": "proto3 language service",
   "engines": {
-    "vscode": "^1.70.0"
+    "vscode": "^1.71.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Snippets",
+    "Linters",
+    "Formatters"
   ],
+  "license": "MIT",
+  "icon": "images/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/kalifun/vscode-proto3-tools"
   },
-  "author": "kalifun",
+  "author": {
+    "name": "kalifun"
+  },
+  "publisher": "kalifun",
   "contributors": [
     {
       "name": "kalifun",
@@ -58,7 +66,28 @@
         "language": "proto3",
         "path": "./snippets/snippets.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Proto3 Tools Config",
+      "properties": {
+        "proto3.outputpath": {
+          "type": "string",
+          "default": "doc",
+          "description": "Path to the generated document(Based on current path)"
+        },
+        "proto3.disable_rules": {
+          "type": "array",
+          "enum": [
+            "core::0140::lower-snake",
+            "core::0131::request-name-field"
+          ],
+          "default": [
+            "core::0123::resource-annotation"
+          ],
+          "description": "Set the check rule to be cancelled(https://linter.aip.dev/)"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
