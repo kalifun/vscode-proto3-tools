@@ -30,15 +30,15 @@
     }
   ],
   "activationEvents": [
-    "onCommand:demo.helloWorld",
+    "onCommand:proto3.gendoc",
     "onLanguage:proto3"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "demo.helloWorld",
-        "title": "Hello World"
+        "command": "proto3.gendoc",
+        "title": "proto3 to doc"
       }
     ],
     "languages": [
