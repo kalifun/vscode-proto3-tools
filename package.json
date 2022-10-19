@@ -88,6 +88,18 @@
           "default": "doc",
           "description": "Path to the generated document(Based on current path)"
         },
+        "proto3.template_language": {
+          "type": "string",
+          "default": "en",
+          "enum": [
+            "zh",
+            "en"
+          ],
+          "enumDescriptions": [
+            "Generated text titles, etc. are in Chinese",
+            "Generated text titles, etc. are in English"
+          ]
+        },
         "proto3.disable_rules": {
           "type": "array",
           "enum": [

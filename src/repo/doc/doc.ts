@@ -34,14 +34,18 @@ function editorToMarkDown(editor: vscode.TextEditor, tool: ToolInfo) {
     const config = vscode.workspace.getConfiguration('proto3');
     const docPath = config.get("outputpath");
     const outPath = path.join(workDir, String(docPath));
+    const language = config.get("template_language");
 
     createDir(outPath);
-    cp.execFile(execPath, ["doc", "--proto", fileName, "--out", outPath], (error, stdout, stderr) => {
-        if (error) {
-            throw error;
-        }
-        console.log(stdout);
-    });
+    cp.execFile(execPath, ["doc",
+        "--proto", fileName,
+        "--out", outPath,
+        "--language", String(language)], (error, stdout, stderr) => {
+            if (error) {
+                throw error;
+            }
+            console.log(stdout);
+        });
     showGenDocSucNotify(outPath);
 }
 
