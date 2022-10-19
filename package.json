@@ -39,6 +39,10 @@
       {
         "command": "proto3.gendoc",
         "title": "proto3 to doc"
+      },
+      {
+        "command": "proto3.menus_gendoc",
+        "title": "proto gen markdown"
       }
     ],
     "languages": [
@@ -67,6 +71,15 @@
         "path": "./snippets/snippets.json"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceExtname == .proto",
+          "command": "proto3.menus_gendoc",
+          "group": "6_test"
+        }
+      ]
+    },
     "configuration": {
       "title": "Proto3 Tools Config",
       "properties": {

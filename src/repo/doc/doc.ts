@@ -1,20 +1,54 @@
 import path = require('path');
+import cp = require('child_process');
 import vscode = require('vscode');
 import { readActiveEditor } from '../../utils/active_editor';
-import { execAreadyInstall, showInstallNotify } from '../../utils/tools';
-
+import { execAreadyInstall, getExecPath, protoDoc, showInstallNotify, ToolInfo, toolsMap } from '../../utils/tools';
+import { createDir } from '../../utils/dir';
+import { showGenDocSucNotify } from '../../utils/notify';
 
 // 操作时校验是否已安装工具
 export function generateMarkdown(ctx: vscode.ExtensionContext) {
-    if (!execAreadyInstall()) {
-        return showInstallNotify();
-    }
+    const tool = getTool(protoDoc);
     const editor = readActiveEditor();
     if (!editor) {
         return;
     }
+    editorToMarkDown(editor, tool);
+}
+
+
+export async function rightClickGenDoc(editor: vscode.TextEditor) {
+    if (!editor) {
+        vscode.window.showWarningMessage("Failed to get live window!");
+    }
+    const tool = getTool(protoDoc);
+    editorToMarkDown(editor, tool);
+}
+
+
+function editorToMarkDown(editor: vscode.TextEditor, tool: ToolInfo) {
+    // 文件路径
     const fileName = editor.document.fileName;
     const workDir = path.dirname(fileName);
-    console.log(workDir);
-    
+    const execPath = getExecPath(tool);
+    const config = vscode.workspace.getConfiguration('proto3');
+    const docPath = config.get("outputpath");
+    const outPath = path.join(workDir, String(docPath));
+
+    createDir(outPath);
+    cp.execFile(execPath, ["doc", "--proto", fileName, "--out", outPath], (error, stdout, stderr) => {
+        if (error) {
+            throw error;
+        }
+        console.log(stdout);
+    });
+    showGenDocSucNotify(outPath);
+}
+
+function getTool(toolName: string): ToolInfo {
+    const tool = toolsMap[toolName];
+    if (!execAreadyInstall(tool)) {
+        showInstallNotify();
+    }
+    return tool;
 }

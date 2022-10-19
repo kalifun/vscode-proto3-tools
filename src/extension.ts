@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import { Proto3CompletionItemProvider } from './api/completion/completion';
 import { Proto3 } from './conf/config';
-import { generateMarkdown } from './repo/doc/doc';
+import { generateMarkdown, rightClickGenDoc } from './repo/doc/doc';
 
 
 
@@ -25,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('proto3.gendoc', generateMarkdown),
+		vscode.commands.registerTextEditorCommand('proto3.menus_gendoc', editor => rightClickGenDoc(editor)),
 		vscode.languages.registerDefinitionProvider(['proto3'], {
 			provideDefinition
 		}));

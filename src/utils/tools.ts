@@ -16,10 +16,15 @@ export function execFileExist(filePath: string): boolean {
 }
 
 // 判断当前机器环境获取执行路径
-export function execAreadyInstall(): boolean {
+export function execAreadyInstall(tool: ToolInfo): boolean {
+    return execFileExist(getExecPath(tool));
+}
+
+// 获取执行的路径
+export function getExecPath(tool: ToolInfo): string {
     const env = process.platform;
-    const execPath = env === 'win32' ? "C:\\Program Files\\proto3-tools\\bin\\proto-doc.exe" : "/usr/local/proto3-tools/bin/proto-doc";
-    return execFileExist(execPath);
+    const execPath = env === 'win32' ? tool.winBin : tool.otherBin;
+    return execPath;
 }
 
 // 展示安装工具通知
@@ -39,3 +44,28 @@ export function showInstallNotify() {
         }
     });
 }
+
+
+export interface ToolInfo {
+    name: string,
+    winBin: string,
+    otherBin: string
+}
+
+const protoDoc: string = "protoDoc";
+const apiLinter: string = "apiLinter";
+
+export const toolsMap: { [key: string]: ToolInfo } = {
+    protoDoc: {
+        name: 'proto-doc',
+        winBin: 'C:\\Program Files\\proto3-tools\\bin\\proto-doc.exe',
+        otherBin: '/usr/local/proto3-tools/bin/proto-doc'
+    },
+    apiLinter: {
+        name: 'api-linter',
+        winBin: 'C:\\Program Files\\proto3-tools\\bin\\api-linter.exe',
+        otherBin: '/usr/local/proto3-tools/bin/api-linter'
+    }
+};
+
+export { protoDoc, apiLinter };
