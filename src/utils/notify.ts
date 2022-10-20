@@ -6,3 +6,9 @@ export function showGenDocSucNotify(savePath: string) {
         "已将proto文件生成markdown了,存储的路径为:" + savePath
     );
 }
+
+export function showErrorNotify(err: NodeJS.ErrnoException) {
+    vscode.window.showErrorMessage(
+        err.message
+    );
+}

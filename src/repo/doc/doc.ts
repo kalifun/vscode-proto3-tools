@@ -9,6 +9,9 @@ import { showGenDocSucNotify } from '../../utils/notify';
 // 操作时校验是否已安装工具
 export function generateMarkdown(ctx: vscode.ExtensionContext) {
     const tool = getTool(protoDoc);
+    if (!tool) {
+        return;
+    }
     const editor = readActiveEditor();
     if (!editor) {
         return;
@@ -22,6 +25,9 @@ export async function rightClickGenDoc(editor: vscode.TextEditor) {
         vscode.window.showWarningMessage("Failed to get live window!");
     }
     const tool = getTool(protoDoc);
+    if (!tool) {
+        return;
+    }
     editorToMarkDown(editor, tool);
 }
 
@@ -49,10 +55,11 @@ function editorToMarkDown(editor: vscode.TextEditor, tool: ToolInfo) {
     showGenDocSucNotify(outPath);
 }
 
-function getTool(toolName: string): ToolInfo {
+function getTool(toolName: string): ToolInfo | undefined {
     const tool = toolsMap[toolName];
     if (!execAreadyInstall(tool)) {
         showInstallNotify();
+        return undefined;
     }
     return tool;
 }
