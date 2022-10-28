@@ -1,7 +1,7 @@
 import fs = require('fs');
 import { showErrorNotify } from './notify';
 
-export function createDir(dirPath: string) {
+export async function createDir(dirPath: string) {
     if (fs.existsSync(dirPath)) {
         console.log('Directory exists!');
     } else {

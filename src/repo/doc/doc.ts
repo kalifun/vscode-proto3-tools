@@ -58,7 +58,7 @@ function editorToMarkDown(editor: vscode.TextEditor, tool: ToolInfo) {
 function getTool(toolName: string): ToolInfo | undefined {
     const tool = toolsMap[toolName];
     if (!execAreadyInstall(tool)) {
-        showInstallNotify();
+        showInstallNotify(tool);
         return undefined;
     }
     return tool;

@@ -1,8 +1,8 @@
 import fs = require('fs');
 import vscode = require('vscode');
-import { createDir } from './dir';
 import compressing = require('compressing');
 import request = require("request");
+import path = require('path');
 
 // 判断文件是否存在
 export function execFileExist(filePath: string): boolean {
@@ -26,20 +26,16 @@ export function execAreadyInstall(tool: ToolInfo): boolean {
 // 获取执行的路径
 export function getExecPath(tool: ToolInfo): string {
     const env = process.platform;
-    const execPath = env === 'win32' ? tool.winBin : tool.otherBin;
+    const execPath = env === 'win32' ? path.join(tool.winWorkSpace, tool.winBin) : path.join(tool.otherWorkSpace, tool.otherBin);
     return execPath;
 }
 
 // 展示安装工具通知
-export function showInstallNotify() {
+export function showInstallNotify(tool: ToolInfo) {
     const installTools = {
         title: "install",
-        command: () => {
-            // 创建目录
-            createDir("C:\\Program Files\\proto3-tools\\bin");
-            // 下载工具
-            downloadFile("https://github.com/kalifun/proto-doc/releases/download/v0.1.2/proto-doc_0.1.2_windows_amd64.tar.gz",
-                "C:\\Program Files\\proto3-tools\\bin\\proto-doc_0.1.2_windows_amd64.tar.gz");
+        command: async (tool: ToolInfo) => {
+            await installTool(tool);
             console.log("install proto-doc tool");
             return;
         }
@@ -49,16 +45,43 @@ export function showInstallNotify() {
         installTools
     ).then((selection) => {
         if (selection) {
-            selection.command();
+            selection.command(tool);
         }
     });
+}
+
+
+async function installTool(tool: ToolInfo) {
+    let di = getToolInfo(tool);
+    if (di === undefined) {
+        return;
+    }
+
+    if (fs.existsSync(di.workspace)) {
+        console.log('Directory exists!');
+        downloadFile(di);
+    } else {
+        console.log('Directory not found.');
+        fs.mkdir(di.workspace, { recursive: true }, (err) => {
+            if (err) {
+                console.log(err);
+                throw err;
+            } else {
+                if (di !== undefined) {
+                    downloadFile(di);
+                }
+            }
+        });
+    }
 }
 
 
 export interface ToolInfo {
     name: string,
     winBin: string,
+    winWorkSpace: string,
     otherBin: string,
+    otherWorkSpace: string,
     version: string,
     repo: string,
 }
@@ -66,33 +89,111 @@ export interface ToolInfo {
 const protoDoc: string = "protoDoc";
 const apiLinter: string = "apiLinter";
 
+
 export const toolsMap: { [key: string]: ToolInfo } = {
     protoDoc: {
         name: 'proto-doc',
-        winBin: 'C:\\Program Files\\proto3-tools\\bin\\proto-doc.exe',
-        otherBin: '/usr/local/proto3-tools/bin/proto-doc',
-        version: "v0.1.2",
+        winBin: 'proto-doc.exe',
+        winWorkSpace: "C:\\Program Files\\proto3-tools\\bin\\",
+        otherBin: '/usr/local/proto3-tools/bin/',
+        otherWorkSpace: "proto-doc",
+        version: "0.1.2",
         repo: "https://github.com/kalifun/proto-doc"
     },
     apiLinter: {
         name: 'api-linter',
-        winBin: 'C:\\Program Files\\proto3-tools\\bin\\api-linter.exe',
-        otherBin: '/usr/local/proto3-tools/bin/api-linter',
+        winBin: 'api-linter.exe',
+        winWorkSpace: "C:\\Program Files\\proto3-tools\\bin\\",
+        otherBin: 'api-linter',
+        otherWorkSpace: "/usr/local/proto3-tools/bin/",
         version: "",
         repo: ""
     }
 };
 
+export interface downloadInfo {
+    downloadpath: string,
+    downloadurl: string,
+    workspace: string,
+    tarname: string
+}
 
-export function downloadFile(uri: string, dest: string) {
-    const file = fs.createWriteStream(dest);
-    const sendReq = request.get(uri);
+
+// 关注arch
+// https://github.com/kalifun/proto-doc/releases/download/v0.1.2/proto-doc_0.1.2_windows_amd64.tar.gz
+function getToolInfo(tool: ToolInfo): downloadInfo | undefined {
+    // 下载路径
+    let downloadPath = "";
+    // 下载url
+    let downloadUrl = "";
+
+    let workspace = "";
+
+    let tarname = "";
+
+    const arch = getArch();
+    if (arch === "") {
+        // 需要返回
+        return;
+    }
+    const suffix = ".tar.gz";
+    const env = process.platform;
+    switch (env) {
+        case "win32":
+            workspace = tool.winWorkSpace;
+            tarname = tool.name + "_" + tool.version + "_" + "windows" + "_" + arch + suffix;
+            downloadPath = tool.winWorkSpace + tarname;
+            downloadUrl = tool.repo + "/releases/download/" + "v" + tool.version + "/" + tarname;
+            break;
+        case "linux":
+            workspace = tool.otherWorkSpace;
+            tarname = tool.name + "_" + tool.version + "_" + "linux" + "_" + arch + suffix;
+            downloadPath = tool.otherWorkSpace + tarname;
+            downloadUrl = tool.repo + "/releases/download/" + "v" + tool.version + "/" + tarname;
+            break;
+        case "darwin":
+            workspace = tool.otherWorkSpace;
+            tarname = tool.name + "_" + tool.version + "_" + "darwin" + "_" + arch + suffix;
+            downloadPath = tool.otherWorkSpace + tarname;
+            downloadUrl = tool.repo + "/releases/download/" + "v" + tool.version + "/" + tarname;
+            break;
+        default:
+            return;
+    }
+
+    const d = {
+        downloadpath: downloadPath,
+        downloadurl: downloadUrl,
+        workspace: workspace,
+        tarname: tarname,
+    };
+    return d;
+}
+
+// get arch
+function getArch(): string {
+    const arch = process.arch;
+    switch (arch) {
+        case "x64":
+            return "amd64";
+        case "arm64":
+            return arch;
+        default:
+            return "";
+    }
+}
+
+
+//  download file
+export function downloadFile(downloadInfo: downloadInfo) {
+    const file = fs.createWriteStream(downloadInfo.downloadpath);
+    const sendReq = request.get(downloadInfo.downloadurl);
 
     // verify response code
     sendReq.on('response', (response) => {
         if (response.statusCode !== 200) {
-            console.log('Response status was ' + response.statusCode);
-            return;
+            let msg = 'Response status was ' + response.statusCode;
+            console.log(msg);
         }
         sendReq.pipe(file);
     });
@@ -101,43 +202,45 @@ export function downloadFile(uri: string, dest: string) {
     file.on('finish', () => {
         file.close();
         console.log("file download success");
-        compressing.tgz.uncompress(dest, 'C:\\Program Files\\proto3-tools\\bin')
+        compressing.tgz.uncompress(downloadInfo.downloadpath, downloadInfo.workspace)
             .then(
                 () => {
-                    console.log("解压成功");
-                    deleteFile(dest);
+                    console.log("Decompression completed");
                 }
             )
             .catch((err) => {
                 console.log(err.message);
-                deleteFile(dest);
+                throw err;
             });
     });
 
     // check for request errors
     sendReq.on('error', (err) => {
-        fs.unlink(dest, () => {
+        fs.unlink(downloadInfo.downloadpath, () => {
             console.log(err.message);
 
         }); // delete the (partial) file and then return the error
     });
 
     file.on('error', (err) => { // Handle errors
-        fs.unlink(dest, () => {
+        fs.unlink(downloadInfo.downloadpath, () => {
             console.log(err.message);
         }); // delete the (partial) file and then return the error
     });
+    deleteFile(downloadInfo.downloadpath);
 }
 
 
+// delete file
 function deleteFile(dest: string) {
     fs.unlink(dest, (err) => {
         if (err) {
-            console.log("文件删除失败");
+            console.log("Failed to delete file");
             return;
         }
-        console.log("文件删除完成");
+        console.log("File deletion completed");
     });
+
 }
 
 
