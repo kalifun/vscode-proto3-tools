@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import cp = require('child_process');
 import { Proto3CompletionItemProvider } from './api/completion/completion';
 import { Proto3 } from './conf/config';
 import { generateMarkdown, rightClickGenDoc } from './repo/doc/doc';
@@ -22,6 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
 		let path = document.uri.path;
 		return new vscode.Location(vscode.Uri.file(path), new vscode.Position(3, 10));
 	}
+
+	vscode.languages.registerDocumentFormattingEditProvider('proto3', {
+		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
+			let filePath = document.uri.fsPath;
+			let stdout = cp.execFileSync('clang-format', [filePath]);
+			return [new vscode.TextEdit(document.validateRange(new vscode.Range(0, 0, Infinity, Infinity)), stdout ? stdout.toString() : '')];
+		},
+	});
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('proto3.gendoc', generateMarkdown),
