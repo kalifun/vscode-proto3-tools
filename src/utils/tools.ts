@@ -1,7 +1,7 @@
 import fs = require('fs');
 import vscode = require('vscode');
 import compressing = require('compressing');
-import request = require("request");
+import request = require("https");
 import path = require('path');
 
 // 判断文件是否存在
