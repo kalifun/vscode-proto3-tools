@@ -13,7 +13,7 @@
       "svr"
     ],
     "body": [
-      "// @desc: ${1:Service Description}",
+      "// desc: ${1:Service Description}",
       "service ${2:ServiceName} {",
       "   $3",
       "}"
@@ -26,10 +26,10 @@
     ],
     "body": [
       "/**",
-      "   @path: ${1:Rpc Path }",
-      "   @desc: ${2:Rpc Description}",
-      "   @method: ${3|post,get,put,delete,patch|}",
-      "   @version: ${4:Rpc Version}",
+      "   path: ${1:Rpc Path }",
+      "   desc: ${2:Rpc Description}",
+      "   method: ${3|post,get,put,delete,patch|}",
+      "   version: ${4:Rpc Version}",
       "*/",
       "rpc ${5:RpcName} (${6:RpcRequestName}) returns (${7:RpcReplyName});"
     ],
@@ -40,7 +40,7 @@
       "msg"
     ],
     "body": [
-      "// @desc: ${1:Message Description}",
+      "// desc: ${1:Message Description}",
       "message ${2:MessageName} {",
       "   $3",
       "}"
@@ -52,7 +52,7 @@
       "imp"
     ],
     "body": [
-      "// @desc: ${1:Import Description}",
+      "// desc: ${1:Import Description}",
       "import \"${2:Path}\";"
     ],
     "description": "Import"
@@ -63,8 +63,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|string,repeated string|} ${2:FieldName} = ${3};"
     ],
@@ -76,8 +76,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|bool,repeated bool|} ${2:FieldName} = ${3};"
     ],
@@ -90,8 +90,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|double,repeated double|} ${2:FieldName} = ${3};"
     ],
@@ -104,8 +104,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|float,repeated float|} ${2:FieldName} = ${3};"
     ],
@@ -117,8 +117,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|int32,repeated int32|} ${2:FieldName} = ${3};"
     ],
@@ -130,8 +130,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|int64,repeated int64|} ${2:FieldName} = ${3};"
     ],
@@ -143,8 +143,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|uint32,repeated uint32|} ${2:FieldName} = ${3};"
     ],
@@ -156,8 +156,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|uint64,repeated uint64|} ${2:FieldName} = ${3};"
     ],
@@ -170,8 +170,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${1:FieldName} ${3:Description}",
-      "   @required: ${4|true,false|}",
+      "   desc: ${1:FieldName} ${3:Description}",
+      "   required: ${4|true,false|}",
       "*/",
       "bytes ${1:FieldName} = ${2};"
     ],
@@ -184,8 +184,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "${1|string,int32,int64,uint32,uint64,bool,double,float,bytes,*|} ${2:FieldName} = ${3};"
     ],
@@ -198,8 +198,8 @@
     ],
     "body": [
       "/**",
-      "   @desc: ${2:FieldName} ${4:Description}",
-      "   @required: ${5|true,false|}",
+      "   desc: ${2:FieldName} ${4:Description}",
+      "   required: ${5|true,false|}",
       "*/",
       "repeated ${1|string,int32,int64,uint32,uint64,bool,double,float,*|} ${2:FieldName} = ${3};"
     ],
@@ -211,7 +211,7 @@
       "enum"
     ],
     "body": [
-      "// @desc: ${1:Enum Description}",
+      "// desc: ${1:Enum Description}",
       "enum ${2:EnumName} {",
       "   $3",
       "}"
@@ -224,7 +224,7 @@
       "package"
     ],
     "body": [
-      "// @desc: ${1:Package Description}",
+      "// desc: ${1:Package Description}",
       "package ${2:PackageName};"
     ]
   }
