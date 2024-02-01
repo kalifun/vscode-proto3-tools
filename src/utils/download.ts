@@ -1,8 +1,8 @@
 import https = require("https");
 import fs = require("fs");
-import { downloadInfo } from "./tools";
+import { DownloadInfo } from "./tools";
 
-export function downloadfile(downloadInfo: downloadInfo) {
+export function downloadfile(downloadInfo: DownloadInfo) {
     const file = fs.createWriteStream(downloadInfo.downloadpath);
     https.get(downloadInfo.downloadurl, function (response) {
         response.pipe(file);

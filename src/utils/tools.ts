@@ -115,7 +115,7 @@ export const toolsMap: { [key: string]: ToolInfo } = {
     }
 };
 
-export interface downloadInfo {
+export interface DownloadInfo {
     downloadpath: string,
     downloadurl: string,
     workspace: string,
@@ -125,7 +125,7 @@ export interface downloadInfo {
 
 // 关注arch
 // https://github.com/kalifun/proto-doc/releases/download/v0.1.2/proto-doc_0.1.2_windows_amd64.tar.gz
-function getToolInfo(tool: ToolInfo): downloadInfo | undefined {
+function getToolInfo(tool: ToolInfo): DownloadInfo | undefined {
     // 下载路径
     let downloadPath = "";
     // 下载url
@@ -189,7 +189,7 @@ function getArch(): string {
 
 
 //  download file
-export function downloadFile(downloadInfo: downloadInfo) {
+export function downloadFile(downloadInfo: DownloadInfo) {
     const file = fs.createWriteStream(downloadInfo.downloadpath);
     const sendReq = request.get(downloadInfo.downloadurl);
 
