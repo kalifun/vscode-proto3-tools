@@ -12,3 +12,7 @@ export function showErrorNotify(err: NodeJS.ErrnoException) {
         err.message
     );
 }
+
+export function showInfoNotify(msg: string) {
+    vscode.window.showInformationMessage(msg);
+}

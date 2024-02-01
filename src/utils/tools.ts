@@ -3,6 +3,9 @@ import vscode = require('vscode');
 import compressing = require('compressing');
 import request = require("https");
 import path = require('path');
+import { showErrorNotify, showInfoNotify } from './notify';
+import { downloadfile } from './download';
+
 
 // 判断文件是否存在
 export function execFileExist(filePath: string): boolean {
@@ -54,6 +57,7 @@ export function showInstallNotify(tool: ToolInfo) {
 async function installTool(tool: ToolInfo) {
     let di = getToolInfo(tool);
     if (di === undefined) {
+        showErrorNotify(Error("Get Tool Download Url Failed"));
         return;
     }
 
@@ -95,9 +99,9 @@ export const toolsMap: { [key: string]: ToolInfo } = {
         name: 'proto-doc',
         winBin: 'proto-doc.exe',
         winWorkSpace: "C:\\Program Files\\proto3-tools\\bin\\",
-        otherBin: '/usr/local/proto3-tools/bin/',
-        otherWorkSpace: "proto-doc",
-        version: "0.1.2",
+        otherBin: 'proto-doc',
+        otherWorkSpace: "/usr/local/bin/",
+        version: "0.1.4",
         repo: "https://github.com/kalifun/proto-doc"
     },
     apiLinter: {
@@ -105,7 +109,7 @@ export const toolsMap: { [key: string]: ToolInfo } = {
         winBin: 'api-linter.exe',
         winWorkSpace: "C:\\Program Files\\proto3-tools\\bin\\",
         otherBin: 'api-linter',
-        otherWorkSpace: "/usr/local/proto3-tools/bin/",
+        otherWorkSpace: "/usr/local/bin/",
         version: "",
         repo: ""
     }
@@ -191,9 +195,25 @@ export function downloadFile(downloadInfo: downloadInfo) {
 
     // verify response code
     sendReq.on('response', (response) => {
-        if (response.statusCode !== 200) {
+        if (response.statusCode !== 200 && response.statusCode !== 302) {
             let msg = 'Response status was ' + response.statusCode;
-            console.log(msg);
+            // console.log(msg);
+            showErrorNotify(Error(msg));
+            return;
+        }
+
+        if (response.statusCode === 302) {
+            let location = response.headers.location;
+            if (location === undefined) {
+                showErrorNotify(Error("get location failed"));
+                return;
+            } else {
+                let newPath = downloadInfo;
+                newPath.downloadurl = location;
+                downloadfile(newPath);
+                showInfoNotify("Successfully download the proto-doc program");
+                return;
+            }
         }
         sendReq.pipe(file);
     });
@@ -227,7 +247,7 @@ export function downloadFile(downloadInfo: downloadInfo) {
             console.log(err.message);
         }); // delete the (partial) file and then return the error
     });
-    deleteFile(downloadInfo.downloadpath);
+    // deleteFile(downloadInfo.downloadpath);
 }
 
 
