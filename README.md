@@ -20,11 +20,15 @@ I'm sure you're no stranger to api documentation, but when there's no common pla
 
 ![](images/syntaxes.png)
 
+### Doc
+
+![](images/doc.png)
+
 ## Todo
 
 - [x] Snippets
 - [x] Syntaxes
-- [ ] Gen Api Doc
+- [x] Gen Api Doc
 
 # Acknowledgement
 
