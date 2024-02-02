@@ -126,6 +126,7 @@
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
+    "@types/tar": "^6.1.11",
     "@types/vscode": "^1.71.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
@@ -136,6 +137,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "compressing": "^1.10.0"
+    "compressing": "^1.10.0",
+    "tar": "^6.2.0"
   }
 }
