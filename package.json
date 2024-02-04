@@ -30,15 +30,19 @@
     }
   ],
   "activationEvents": [
-    "onCommand:demo.helloWorld",
+    "onCommand:proto3.gendoc",
     "onLanguage:proto3"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "demo.helloWorld",
-        "title": "Hello World"
+        "command": "proto3.gendoc",
+        "title": "proto3 to doc"
+      },
+      {
+        "command": "proto3.menus_gendoc",
+        "title": "proto gen markdown"
       }
     ],
     "languages": [
@@ -67,6 +71,15 @@
         "path": "./snippets/snippets.json"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceExtname == .proto",
+          "command": "proto3.menus_gendoc",
+          "group": "6_test"
+        }
+      ]
+    },
     "configuration": {
       "title": "Proto3 Tools Config",
       "properties": {
@@ -74,6 +87,18 @@
           "type": "string",
           "default": "doc",
           "description": "Path to the generated document(Based on current path)"
+        },
+        "proto3.template_language": {
+          "type": "string",
+          "default": "en",
+          "enum": [
+            "zh",
+            "en"
+          ],
+          "enumDescriptions": [
+            "Generated text titles, etc. are in Chinese",
+            "Generated text titles, etc. are in English"
+          ]
         },
         "proto3.disable_rules": {
           "type": "array",
@@ -98,16 +123,21 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.71.0",
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
+    "@types/tar": "^6.1.11",
+    "@types/vscode": "^1.71.0",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
+    "@vscode/test-electron": "^2.1.5",
     "eslint": "^8.20.0",
     "glob": "^8.0.3",
     "mocha": "^10.0.0",
-    "typescript": "^4.7.4",
-    "@vscode/test-electron": "^2.1.5"
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "compressing": "^1.10.0",
+    "tar": "^6.2.0"
   }
 }

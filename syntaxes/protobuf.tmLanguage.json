@@ -48,7 +48,7 @@
     "required": {
       "patterns": [
         {
-          "match": "\\s+(@required:)",
+          "match": "\\s+(required:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -60,7 +60,7 @@
     "keyword": {
       "patterns": [
         {
-          "match": "\\s+(@path:|@Path:|Path:)",
+          "match": "\\s+(path:|Path:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -68,7 +68,7 @@
           }
         },
         {
-          "match": "\\s+(@desc:|@Desc:|Desc:)",
+          "match": "\\s+(desc:|Desc:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -76,7 +76,7 @@
           }
         },
         {
-          "match": "\\s+(@version:|@Version:|Version:)",
+          "match": "\\s+(version:|Version:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -84,7 +84,7 @@
           }
         },
         {
-          "match": "\\s+(@method:|@Method:|Method:)",
+          "match": "\\s+(method:|Method:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
@@ -92,7 +92,7 @@
           }
         },
         {
-          "match": "\\s+(@required:)",
+          "match": "\\s+(required:)",
           "captures": {
             "1": {
               "name": "support.other.proto"
