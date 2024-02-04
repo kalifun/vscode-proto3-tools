@@ -5,6 +5,7 @@ import cp = require('child_process');
 import { Proto3CompletionItemProvider } from './api/completion/completion';
 import { Proto3 } from './conf/config';
 import { generateMarkdown, rightClickGenDoc } from './repo/doc/doc';
+import {formatFile, isClangFormat} from "./repo/format/format";
 
 
 
@@ -25,9 +26,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 	vscode.languages.registerDocumentFormattingEditProvider('proto3', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-			let filePath = document.uri.fsPath;
-			let stdout = cp.execFileSync('clang-format', [filePath]);
-			return [new vscode.TextEdit(document.validateRange(new vscode.Range(0, 0, Infinity, Infinity)), stdout ? stdout.toString() : '')];
+			if (!isClangFormat) {
+				return [];
+			}
+			return formatFile(document);
 		},
 	});
 
