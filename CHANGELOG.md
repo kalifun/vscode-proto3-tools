@@ -9,3 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - snippets
 - syntaxes
 
+## [0.1.2]
+
+- Gen Api Doc
+
+## [0.1.3]
+
+- format code

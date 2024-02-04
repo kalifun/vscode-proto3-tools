@@ -1,143 +1,176 @@
 {
-  "name": "vscode-proto3-tools",
-  "displayName": "Proto3 Tools",
-  "version": "0.1.1",
-  "description": "proto3 language service",
-  "engines": {
-    "vscode": "^1.71.0"
-  },
-  "categories": [
-    "Programming Languages",
-    "Snippets",
-    "Linters",
-    "Formatters"
-  ],
-  "license": "MIT",
-  "icon": "images/logo.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kalifun/vscode-proto3-tools"
-  },
-  "author": {
-    "name": "kalifun"
-  },
-  "publisher": "kalifun",
-  "contributors": [
-    {
-      "name": "kalifun",
-      "email": "kalifun@163.com",
-      "url": "https://github.com/kalifun"
-    }
-  ],
-  "activationEvents": [
-    "onCommand:proto3.gendoc",
-    "onLanguage:proto3"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "proto3.gendoc",
-        "title": "proto3 to doc"
-      },
-      {
-        "command": "proto3.menus_gendoc",
-        "title": "proto gen markdown"
-      }
-    ],
-    "languages": [
-      {
-        "id": "proto3",
-        "aliases": [
-          "ProtoBuf",
-          "protobuf"
-        ],
-        "extensions": [
-          ".proto"
-        ],
-        "configuration": "./language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "proto3",
-        "scopeName": "source.proto",
-        "path": "./syntaxes/protobuf.tmLanguage.json"
-      }
-    ],
-    "snippets": [
-      {
-        "language": "proto3",
-        "path": "./snippets/snippets.json"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "resourceExtname == .proto",
-          "command": "proto3.menus_gendoc",
-          "group": "6_test"
-        }
-      ]
+    "name": "vscode-proto3-tools",
+    "displayName": "Proto3 Tools",
+    "version": "0.1.3",
+    "description": "proto3 language service",
+    "engines": {
+        "vscode": "^1.71.0"
     },
-    "configuration": {
-      "title": "Proto3 Tools Config",
-      "properties": {
-        "proto3.outputpath": {
-          "type": "string",
-          "default": "doc",
-          "description": "Path to the generated document(Based on current path)"
-        },
-        "proto3.template_language": {
-          "type": "string",
-          "default": "en",
-          "enum": [
-            "zh",
-            "en"
-          ],
-          "enumDescriptions": [
-            "Generated text titles, etc. are in Chinese",
-            "Generated text titles, etc. are in English"
-          ]
-        },
-        "proto3.disable_rules": {
-          "type": "array",
-          "enum": [
-            "core::0140::lower-snake",
-            "core::0131::request-name-field"
-          ],
-          "default": [
-            "core::0123::resource-annotation"
-          ],
-          "description": "Set the check rule to be cancelled(https://linter.aip.dev/)"
+    "categories": [
+        "Programming Languages",
+        "Snippets",
+        "Linters",
+        "Formatters"
+    ],
+    "license": "MIT",
+    "icon": "images/logo.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kalifun/vscode-proto3-tools"
+    },
+    "author": {
+        "name": "kalifun"
+    },
+    "publisher": "kalifun",
+    "contributors": [
+        {
+            "name": "kalifun",
+            "email": "kalifun@163.com",
+            "url": "https://github.com/kalifun"
         }
-      }
+    ],
+    "activationEvents": [
+        "onCommand:proto3.gendoc",
+        "onLanguage:proto3"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "proto3.gendoc",
+                "title": "proto3 to doc"
+            },
+            {
+                "command": "proto3.menus_gendoc",
+                "title": "proto gen markdown"
+            }
+        ],
+        "languages": [
+            {
+                "id": "proto3",
+                "aliases": [
+                    "ProtoBuf",
+                    "protobuf"
+                ],
+                "extensions": [
+                    ".proto"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "proto3",
+                "scopeName": "source.proto",
+                "path": "./syntaxes/protobuf.tmLanguage.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "proto3",
+                "path": "./snippets/snippets.json"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceExtname == .proto",
+                    "command": "proto3.menus_gendoc",
+                    "group": "6_test"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "Proto3 Tools Config",
+            "properties": {
+                "proto3.outputpath": {
+                    "type": "string",
+                    "default": "doc",
+                    "description": "Path to the generated document(Based on current path)"
+                },
+                "proto3.template_language": {
+                    "type": "string",
+                    "default": "en",
+                    "enum": [
+                        "zh",
+                        "en"
+                    ],
+                    "enumDescriptions": [
+                        "Generated text titles, etc. are in Chinese",
+                        "Generated text titles, etc. are in English"
+                    ]
+                },
+                "proto3.disable_rules": {
+                    "type": "array",
+                    "enum": [
+                        "core::0140::lower-snake",
+                        "core::0131::request-name-field"
+                    ],
+                    "default": [
+                        "core::0123::resource-annotation"
+                    ],
+                    "description": "Set the check rule to be cancelled(https://linter.aip.dev/)"
+                },
+                "proto3.clang-format_BasedOnStyle": {
+                    "type": "string",
+                    "default": "Google",
+                    "enum": [
+                        "Google",
+                        "LLVM"
+                    ],
+                    "description": "Specify the code style to use for clang-format"
+                },
+                "proto3.clang-format_IndentWidth": {
+                    "type": "number",
+                    "default": 2,
+                    "enum": [
+                        2,
+                        4
+                    ],
+                    "description": "Specify the indentation width for clang-format"
+                },
+                "proto3.clang-format_TabWidth": {
+                    "type": "number",
+                    "default": 2,
+                    "enum": [
+                        2,
+                        4
+                    ],
+                    "description": "Specify the tab width for clang-format"
+                }
+            }
+        },
+        "documentFormattingProviders": [
+            {
+                "language": "proto3",
+                "provider": "extension.clangFormat"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "yarn run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "yarn run compile && yarn run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.2.0",
+        "@types/mocha": "^9.1.1",
+        "@types/node": "16.x",
+        "@types/tar": "^6.1.11",
+        "@types/vscode": "^1.71.0",
+        "@typescript-eslint/eslint-plugin": "^5.31.0",
+        "@typescript-eslint/parser": "^5.31.0",
+        "@vscode/test-electron": "^2.1.5",
+        "eslint": "^8.20.0",
+        "glob": "^8.0.3",
+        "mocha": "^10.0.0",
+        "typescript": "^4.7.4"
+    },
+    "dependencies": {
+        "compressing": "^1.10.0",
+        "tar": "^6.2.0"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "16.x",
-    "@types/tar": "^6.1.11",
-    "@types/vscode": "^1.71.0",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "@vscode/test-electron": "^2.1.5",
-    "eslint": "^8.20.0",
-    "glob": "^8.0.3",
-    "mocha": "^10.0.0",
-    "typescript": "^4.7.4"
-  },
-  "dependencies": {
-    "compressing": "^1.10.0",
-    "tar": "^6.2.0"
-  }
 }
