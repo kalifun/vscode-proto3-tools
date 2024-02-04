@@ -29,6 +29,7 @@ I'm sure you're no stranger to api documentation, but when there's no common pla
 - [x] Snippets
 - [x] Syntaxes
 - [x] Gen Api Doc
+- [x] Format code
 
 # Acknowledgement
 
