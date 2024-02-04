@@ -139,7 +139,13 @@
                     "description": "Specify the tab width for clang-format"
                 }
             }
-        }
+        },
+        "documentFormattingProviders": [
+            {
+                "language": "proto3",
+                "provider": "extension.clangFormat"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "yarn run compile",
