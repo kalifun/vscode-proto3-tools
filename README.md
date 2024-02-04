@@ -24,6 +24,10 @@ I'm sure you're no stranger to api documentation, but when there's no common pla
 
 ![](images/doc.png)
 
+### Format
+
+![](images/format.gif)
+
 ## Todo
 
 - [x] Snippets
