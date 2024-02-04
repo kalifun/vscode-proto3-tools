@@ -14,7 +14,6 @@ export function activate(context: vscode.ExtensionContext) {
 	// 注册一个自动补全
 	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(Proto3, new Proto3CompletionItemProvider(), '.', '\"'));
 
-
 	function provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Definition | vscode.LocationLink[]> {
 		let word = document.getText(document.getWordRangeAtPosition(position));
 		console.log(word);
