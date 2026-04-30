@@ -14,7 +14,9 @@ import {formatFile, isClangFormat} from "./repo/format/format";
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 	// 注册一个自动补全
-	context.subscriptions.push(vscode.languages.registerCompletionItemProvider(Proto3, new Proto3CompletionItemProvider(), '.', '\"'));
+	context.subscriptions.push(
+		vscode.languages.registerCompletionItemProvider(Proto3, new Proto3CompletionItemProvider(), '.', '\"', '(')
+	);
 
 	vscode.languages.registerDocumentFormattingEditProvider('proto3', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
@@ -30,8 +32,9 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerTextEditorCommand('proto3.menus_gendoc', (editor) => {
 			void rightClickGenDoc(editor).catch((e) => console.error('proto3.menus_gendoc', e));
 		}),
-		vscode.languages.registerDefinitionProvider(['proto3'], createProto3DefinitionProvider())
-	);
+		vscode.languages.registerDefinitionProvider(['proto3'], {
+			provideDefinition
+		}));
 }
 
 

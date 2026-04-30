@@ -1,0 +1,64 @@
+# 推送形如 v0.2.0 的 tag 时：校验版本、打 VSIX、创建 GitHub Release、发布到 VS Code 市场。
+# 仓库 Settings → Secrets → Actions 中配置 VSCE_PAT（Azure DevOps PAT，勾选 Marketplace > Manage）。
+# 发版前请先把 package.json 的 version 改成与 tag 一致（tag 去掉前缀 v）。
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: yarn
+
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: Compile
+        run: yarn compile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Match package.json version to tag
+        run: |
+          TAG="${GITHUB_REF#refs/tags/v}"
+          VER=$(node -p "require('./package.json').version")
+          if [ "$VER" != "$TAG" ]; then
+            echo "::error::package.json version ($VER) must equal git tag without v prefix ($TAG)"
+            exit 1
+          fi
+
+      - name: Package VSIX
+        run: yarn vsix
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.vsix"
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to VS Code Marketplace
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          if [ -z "$VSCE_PAT" ]; then
+            echo "::error::Missing secret VSCE_PAT. Create a PAT at https://dev.azure.com (Marketplace > Manage) and add it under Repo Settings → Secrets → Actions."
+            exit 1
+          fi
+          VSIX=$(ls -1 ./*.vsix | head -1)
+          npx vsce publish --pat "$VSCE_PAT" --packagePath "$VSIX"
