@@ -1,7 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import cp = require('child_process');
 import { Proto3CompletionItemProvider } from './api/completion/completion';
 import { createProto3DefinitionProvider } from './api/definition/protoDefinition';
 import { Proto3 } from './conf/config';
@@ -18,15 +17,6 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.languages.registerCompletionItemProvider(Proto3, new Proto3CompletionItemProvider(), '.', '\"', '(')
 	);
 
-	function provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Definition | vscode.LocationLink[]> {
-		let word = document.getText(document.getWordRangeAtPosition(position));
-		console.log(word);
-		console.log(position.line);
-
-		let path = document.uri.path;
-		return new vscode.Location(vscode.Uri.file(path), new vscode.Position(3, 10));
-	}
-
 	vscode.languages.registerDocumentFormattingEditProvider('proto3', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
 			if (!isClangFormat) {
@@ -41,9 +31,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.commands.registerTextEditorCommand('proto3.menus_gendoc', (editor) => {
 			void rightClickGenDoc(editor).catch((e) => console.error('proto3.menus_gendoc', e));
 		}),
-		vscode.languages.registerDefinitionProvider(['proto3'], {
-			provideDefinition
-		}));
+		vscode.languages.registerDefinitionProvider(['proto3'], createProto3DefinitionProvider())
+	);
 }
 
 
