@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import cp = require('child_process');
 import { Proto3CompletionItemProvider } from './api/completion/completion';
+import { createProto3DefinitionProvider } from './api/definition/protoDefinition';
 import { Proto3 } from './conf/config';
 import { generateMarkdown, rightClickGenDoc } from './repo/doc/doc';
 import {formatFile, isClangFormat} from "./repo/format/format";
