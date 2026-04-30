@@ -153,7 +153,9 @@
         "watch": "tsc -watch -p ./",
         "pretest": "yarn run compile && yarn run lint",
         "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js"
+        "test": "node ./out/test/runTest.js",
+        "ci": "yarn compile && yarn lint",
+        "vsix": "vsce package"
     },
     "devDependencies": {
         "@types/glob": "^7.2.0",
@@ -164,6 +166,7 @@
         "@typescript-eslint/eslint-plugin": "^5.31.0",
         "@typescript-eslint/parser": "^5.31.0",
         "@vscode/test-electron": "^2.1.5",
+        "@vscode/vsce": "^3.2.1",
         "eslint": "^8.20.0",
         "glob": "^8.0.3",
         "mocha": "^10.0.0",
