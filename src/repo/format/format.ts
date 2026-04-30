@@ -21,14 +21,26 @@ export function isClangFormat(): Boolean {
 }
 
 
-export function formatFile(document: vscode.TextDocument): vscode.TextEdit[]{
+export function formatFile(document: vscode.TextDocument): vscode.TextEdit[] {
     const config = vscode.workspace.getConfiguration('proto3');
     const basedOnStyle = config.get("clang-format_BasedOnStyle");
     const indentWith = config.get("clang-format_IndentWidth");
     const tabWith = config.get("clang-format_TabWidth");
-    let cmd = `clang-format --style="{BasedOnStyle: ${basedOnStyle}, IndentWidth: ${indentWith}, TabWidth: ${tabWith}}"`;
-    // console.log(cmd);
-    let stdout = cp.execSync(cmd, {input: document.getText()});
-    // console.log(stdout.toString());
-	return [new vscode.TextEdit(document.validateRange(new vscode.Range(0, 0, Infinity, Infinity)), stdout ? stdout.toString() : '')];
+    const cmd = `clang-format --style="{BasedOnStyle: ${basedOnStyle}, IndentWidth: ${indentWith}, TabWidth: ${tabWith}}"`;
+    try {
+        const stdout = cp.execSync(cmd, {
+            input: document.getText(),
+            maxBuffer: 10 * 1024 * 1024,
+        });
+        return [
+            new vscode.TextEdit(
+                document.validateRange(new vscode.Range(0, 0, Infinity, Infinity)),
+                stdout ? stdout.toString() : ''
+            ),
+        ];
+    } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        void vscode.window.showErrorMessage(`clang-format failed: ${msg}`);
+        return [];
+    }
 }

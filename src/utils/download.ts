@@ -33,9 +33,8 @@ export async function download(downloadInfo: DownloadInfo) {
       });
     })
     .on("error", function (err) {
-      // fs.unlink(downloadInfo.downloadpath);
       console.error("Error occurred while downloading file:", err);
-      throw err;
+      showErrorNotify(err instanceof Error ? err : new Error(String(err)));
     });
 }
 
