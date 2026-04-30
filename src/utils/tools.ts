@@ -73,11 +73,14 @@ async function installTool(tool: ToolInfo) {
     fs.mkdir(di.workspace, { recursive: true }, (err) => {
       if (err) {
         console.log(err);
-        throw err;
-      } else {
-        if (di !== undefined) {
-          downloadFile(di);
-        }
+        showErrorNotify(err);
+        return;
+      }
+      if (di !== undefined) {
+        void downloadFile(di).catch((e) => {
+          console.error(e);
+          showErrorNotify(e instanceof Error ? e : new Error(String(e)));
+        });
       }
     });
   }
@@ -213,7 +216,7 @@ async function uncompress(downloadInfo: DownloadInfo) {
     })
     .catch((err) => {
       console.log(err.message);
-      throw err;
+      showErrorNotify(err instanceof Error ? err : new Error(String(err)));
     });
 }
 
