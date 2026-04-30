@@ -4,6 +4,12 @@ All notable changes to the **vscode-proto3-tools** extension are documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2]
+
+### Fixed
+
+- Refactor definition provider registration in extension.ts to use createProto3DefinitionProvider function, removing the previous inline provideDefinition function for improved clarity and maintainability.
+
 ## [0.2.1]
 
 ### Added
