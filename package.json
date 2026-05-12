@@ -111,6 +111,11 @@
                     ],
                     "description": "Set the check rule to be cancelled(https://linter.aip.dev/)"
                 },
+                "proto3.clang-format_executable": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Path to the clang-format executable. Leave empty to use 'clang-format' from PATH."
+                },
                 "proto3.clang-format_BasedOnStyle": {
                     "type": "string",
                     "default": "Google",

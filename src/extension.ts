@@ -5,7 +5,11 @@ import { Proto3CompletionItemProvider } from './api/completion/completion';
 import { createProto3DefinitionProvider } from './api/definition/protoDefinition';
 import { Proto3 } from './conf/config';
 import { generateMarkdown, rightClickGenDoc } from './repo/doc/doc';
-import {formatFile, isClangFormat} from "./repo/format/format";
+import {
+	createProto3DocumentFormattingProvider,
+	detectClangFormat,
+	resetClangFormatDetection,
+} from './repo/format/format';
 
 
 
@@ -17,14 +21,23 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.languages.registerCompletionItemProvider(Proto3, new Proto3CompletionItemProvider(), '.', '\"', '(')
 	);
 
-	vscode.languages.registerDocumentFormattingEditProvider('proto3', {
-		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
-			if (!isClangFormat) {
-				return [];
+	context.subscriptions.push(
+		vscode.languages.registerDocumentFormattingEditProvider(
+			'proto3',
+			createProto3DocumentFormattingProvider()
+		)
+	);
+
+	void detectClangFormat();
+
+	context.subscriptions.push(
+		vscode.workspace.onDidChangeConfiguration((e) => {
+			if (e.affectsConfiguration('proto3.clang-format_executable')) {
+				resetClangFormatDetection();
+				void detectClangFormat();
 			}
-			return formatFile(document);
-		},
-	});
+		})
+	);
 
 	context.subscriptions.push(
 		vscode.commands.registerCommand('proto3.gendoc', generateMarkdown),
