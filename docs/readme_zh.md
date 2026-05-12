@@ -25,7 +25,7 @@
 | **代码片段** | 常见 message / rpc / 字段等模板。 |
 | **语法高亮** | `.proto` 的 TextMate 语法（语言 id：`proto3`）。 |
 | **生成文档** | 命令与右键菜单调用外部 [**proto-doc**](https://github.com/kalifun/proto-doc)；可配置输出目录与中英模板。 |
-| **格式化** | 使用本机 **clang-format**（可在设置里选风格与缩进）。 |
+| **格式化** | 使用本机 **clang-format**（可在设置里选风格与缩进）。检测结果会缓存，并在配置变化时重新探测；可通过 `proto3.clang-format_executable` 指定可执行路径。 |
 | **补全** | 按上下文补关键字、标量类型、当前文件内的 message/enum、常见 `google.protobuf.*`，以及 `rpc` / `returns` 括号内的类型等。 |
 | **跳转定义** | 跳转到本文件内的 `message` / `enum` / `service` / `rpc` 定义；支持通过相对路径 `import` 打开的其它 `.proto` 中的同名符号（当前文件优先覆盖 import）。 |
 | **CI / 发版** | GitHub Actions：PR/推送时编译 + lint；推送 `v*` 标签时打 VSIX、建 GitHub Release，并在配置 `VSCE_PAT` 时发布到 VS Code 扩展市场。 |
@@ -49,7 +49,6 @@
 ## 尚未实现 / 规划中
 
 - [ ] **AIP / api-linter**：设置里已有 `proto3.disable_rules` 等项，但尚未接入诊断或调用 api-linter。
-- [ ] **clang-format 检测**：更可靠地判断本机是否已安装 `clang-format`，再决定是否提供格式化。
 - [ ] **引用与大纲**：查找所有引用、工作区/文档符号列表等。
 - [ ] **复杂 import**：`buf.work.yaml`、`protoc -I` 多根路径等，不仅限于「相对当前文件的 import 路径」。
 - [ ] **自动化测试**：在 CI 中跑扩展集成测试。
@@ -61,6 +60,7 @@
 - [x] Syntaxes  
 - [x] Gen Api Doc（proto-doc）  
 - [x] Format code  
+- [x] clang-format 检测（缓存探测 + 可配置路径）  
 - [x] 补全（Completion）  
 - [x] 跳转定义（Definition）  
 - [x] CI 与 Release 工作流  

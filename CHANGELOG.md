@@ -4,6 +4,21 @@ All notable changes to the **vscode-proto3-tools** extension are documented in t
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **`proto3.clang-format_executable`** setting: allows overriding the `clang-format` binary path; empty value falls back to `clang-format` from `PATH`.
+
+### Fixed
+
+- **clang-format detection**: replaced the previous always-`false` (and incorrectly used) `isClangFormat()` with an async `detectClangFormat()` that runs `clang-format --version`, caches the result, and re-probes on configuration change. The formatter now reliably no-ops with a single warning when `clang-format` is missing, instead of throwing or silently doing nothing.
+
+### Changed
+
+- **`formatFile`**: switched from `execSync` (shell-string) to `execFileSync(exe, ['--style=...'])` to avoid shell quoting and to honor the configured executable.
+- **`extension.ts`**: registered formatting via `createProto3DocumentFormattingProvider()`; warms detection on `activate` and resets it via `onDidChangeConfiguration` when the executable setting changes.
+
 ## [0.2.2]
 
 ### Fixed
